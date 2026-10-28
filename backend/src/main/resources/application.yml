@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: studymate
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL:jdbc:mysql://localhost:3306/studymate?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD}
+
+  flyway:
+    enabled: false
+  session:
+    timeout: 86400
+    store-type: redis
+  mvc:
+    path match:
+      matching-strategy: ant_path_matcher
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  # redis 配置
+  redis:
+    port: ${REDIS_PORT:6379}
+    host: ${REDIS_HOST:localhost}
+    database: ${REDIS_DATABASE:1}
+    password: ${REDIS_PASSWORD:}
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false
+  global-config:
+    db-config:
+      logic-delete-field: isDelete
+      logic-delete-value: 1
+      logic-not-delete-value: 0
